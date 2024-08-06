@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9eaf2bac-f5d8-4d70-81bb-964482dcc578" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/online_shop/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/online_shop/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/online_shop/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/online_shop/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/online_shop/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/online_shop/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/online_shop/templates/online_shop/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/online_shop/templates/online_shop/detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/online_shop/templates/online_shop/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/online_shop/templates/online_shop/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/online_shop/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/online_shop/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/online_shop/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/online_shop/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,6 +42,7 @@
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR_AND_PREVIEW&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
@@ -109,6 +104,9 @@
       <workItem from="1722620507373" duration="6456000" />
       <workItem from="1722705559429" duration="388000" />
       <workItem from="1722705959838" duration="21000" />
+      <workItem from="1722856993183" duration="6748000" />
+      <workItem from="1722965197959" duration="2546000" />
+      <workItem from="1722967797540" duration="864000" />
     </task>
     <servers />
   </component>
