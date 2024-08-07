@@ -1,5 +1,6 @@
 from typing import Optional
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -13,20 +14,20 @@ from django.db.models import Q
 # Create your views here.
 
 
-def product_list(request, category_id: Optional[int] = None):
+def product_list(request, category_slug: Optional[str] = None):
     categories = Category.objects.all().order_by('id')
     search = request.GET.get('q')
     filter_type = request.GET.get('filter', '')
-    if category_id:
+    if category_slug:
         if filter_type == 'expensive':
-            products = Product.objects.filter(category=category_id).order_by('-price')
+            products = Product.objects.filter(category__slug=category_slug).order_by('-price')
         elif filter_type == 'cheap':
-            products = Product.objects.filter(category=category_id).order_by('price')
+            products = Product.objects.filter(category__slug=category_slug).order_by('price')
         elif filter_type == 'rating':
-            products = Product.objects.filter(Q(category=category_id) & Q(rating__gte=4)).order_by('-rating')
+            products = Product.objects.filter(Q(category__slug=category_slug) & Q(rating__gte=4)).order_by('-rating')
 
         else:
-            products = Product.objects.filter(category=category_id)
+            products = Product.objects.filter(category__slug=category_slug)
 
     else:
         if filter_type == 'expensive':
@@ -176,3 +177,13 @@ def edit_product(request, product_id):
             return redirect('product_detail', product_id)
 
     return render(request, 'online_shop/edit-product.html', {'form': form})
+
+from django.utils import translation
+
+def my_view(request):
+    user_language = 'en'
+    translation.activate(user_language)
+    response = render(request, 'online_shop/language.html')
+    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, user_language)
+    return response
+
