@@ -41,9 +41,10 @@ def product_list(request, category_id: Optional[int] = None):
             products = Product.objects.all()
 
     if search:
-        products = products.filter(Q(name__icontains=search) | Q(comments__name__icontains=search))
-
+        products = products.filter(
+            Q(name__icontains=search))
     context = {
+
         'products': products,
         'categories': categories
     }
@@ -53,11 +54,20 @@ def product_list(request, category_id: Optional[int] = None):
 def product_detail(request, product_id):
     categories = Category.objects.all()
     product = Product.objects.get(id=product_id)
-    comments = Comment.objects.filter(product=product_id, is_provide=True).order_by('-id')
+
+    search_query = request.GET.get('q')
+    if search_query:
+        comments = Comment.objects.filter(product=product_id, is_provide=True).order_by('-id')
+    else:
+        comments = Comment.objects.filter(product=product_id, is_provide=True).order_by('-id')
+
+    related_products = Product.objects.filter(category=product.category).exclude(id=product_id)[:4]
+
     context = {
         'product': product,
         'comments': comments,
-        'categories': categories
+        'categories': categories,
+        'related_products': related_products
     }
 
     return render(request, 'online_shop/detail.html', context)
