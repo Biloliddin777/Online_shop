@@ -1,5 +1,5 @@
 from django.db import models
-from django.template.defaultfilters import slugify
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -14,20 +14,19 @@ class BaseModel(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=50, unique=True)
-    slug = models.SlugField()
+    slug = models.SlugField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
         super(Category, self).save(*args, **kwargs)
 
-
     def __str__(self):
         return self.title
 
     class Meta:
         verbose_name_plural = "Categories"
-        db_table = "category"
+        db_table = 'category'
 
 
 class Product(BaseModel):
@@ -49,10 +48,6 @@ class Product(BaseModel):
                                               null=True, blank=True)
     discount = models.PositiveSmallIntegerField(null=True, blank=True)
 
-
-    class Meta:
-        db_table = 'product'
-
     @property
     def get_image_url(self):
         if self.image:
@@ -68,17 +63,19 @@ class Product(BaseModel):
     def __str__(self):
         return self.name
 
+    class Meta:
+        db_table = 'product'
+
 
 class Comment(BaseModel):
-    name = models.CharField(max_length=100, default=0, blank=True)
-    email = models.EmailField(max_length=255, default=0, blank=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=255)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='comments')
     body = models.TextField()
     is_provide = models.BooleanField(default=True)
 
     def __str__(self):
         return f'{self.name} - {self.created_at}'
-
 
     class Meta:
         db_table = 'comment'
@@ -86,13 +83,12 @@ class Comment(BaseModel):
 
 class Order(BaseModel):
     name = models.CharField(max_length=100, null=True, blank=True)
-    phone = models.CharField(max_length=13, null=True, blank=True)
+    phone = models.CharField(max_length=13)
     quantity = models.IntegerField(default=0)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE,default=0)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.name} - {self.phone}'
-
 
     class Meta:
         db_table = 'order'

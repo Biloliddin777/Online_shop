@@ -1,16 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
-
-from online_shop.models import Product, Category, Comment, Order
+from online_shop.models import Product, Category, Comment
 
 # Register your models here.
 
 # admin.site.register(Product)
 # admin.site.register(Category)
-# admin.site.register(Comment)
-# admin.site.register(Order)
+admin.site.register(Comment)
 
-admin.site.unregister(User)
+# admin.site.unregister(User)
 admin.site.unregister(Group)
 
 
@@ -35,7 +33,7 @@ class IsVeryExpensiveFilter(admin.SimpleListFilter):
 
 @admin.register(Category)
 class CategoryModelAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug','product_count')
+    list_display = ('title', 'slug', 'product_count')
     search_fields = ['title', 'id']
     prepopulated_fields = {'slug': ('title',)}
 
@@ -45,7 +43,7 @@ class CategoryModelAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'quantity', 'category', 'discount', 'get_image_url', 'is_very_expensive_product')
+    list_display = ('name', 'price', 'quantity', 'discount', 'image_preview', 'is_very_expensive_product')
     search_fields = ['name']
     list_filter = ['category', IsVeryExpensiveFilter]
 
@@ -54,15 +52,23 @@ class ProductModelAdmin(admin.ModelAdmin):
 
     is_very_expensive_product.boolean = True
 
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" width="100" height="100" />', obj.image.url)
+        return 'No Image'
 
-@admin.register(Order)
-class OrderModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'phone', 'quantity')
-    search_fields = ['name']
-    list_filter = ['name']
+    image_preview.short_description = 'Image Preview'
 
-@admin.register(Comment)
-class CommentModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'body')
-    search_fields = ['name']
-    list_filter = ['name']
+#
+# @admin.register(Order)
+# class OrderModelAdmin(admin.ModelAdmin):
+#     list_display = ('name', 'phone', 'quantity')
+#     search_fields = ['name']
+#     list_filter = ['name']
+#
+#
+# @admin.register(Comment)
+# class CommentModelAdmin(admin.ModelAdmin):
+#     list_display = ('name', 'email', 'body')
+#     search_fields = ['name']
+#     list_filter = ['name']

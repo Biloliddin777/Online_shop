@@ -37,7 +37,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% for category in categories %}
                             <li><a class="dropdown-item"
-                                   href="{% url 'category_detail_id' category.slug %}">{{ category.title }}</a></li>
+                                   href="{% url 'category_detail_id' category.id %}">{{ category.title }}</a></li>
                         {% endfor %}
 
                     </ul>
@@ -53,8 +53,28 @@
 
                 </button>
             </form>
+
         </div>
+
     </div>
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout_page' %}">
+            {% csrf_token %}
+            <div>
+
+                <button type="submit" class="btn btn-outline-danger">Logout</button>
+
+                <h4>{{ user.username }}</h4>
+
+            </div>
+        </form>
+    {% else %}
+        <div>
+            <a href="{% url 'login_page' %}">
+                <button type="button" class="btn btn-outline-primary">Login</button>
+            </a>
+        </div>
+    {% endif %}
 </nav>
 <!-- Header-->
 {% block main_content %}
